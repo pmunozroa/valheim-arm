@@ -95,6 +95,7 @@ wine valheim_server.exe \
     -backuplong $SERVER_BACKUP_LONG \
     -savedir ${PERSISTENT} \
     ${CROSSPLAY_FLAG:+"$CROSSPLAY_FLAG"} \
+    "$@" \
     -nographics \
     -batchmode \
     2>&1 | tee -a ${LOG_FILE} &

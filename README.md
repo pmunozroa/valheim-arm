@@ -29,6 +29,16 @@ Autosave works correctly when using docker stop.
 - `SERVER_BACKUP_SHORT` - The interval between the first automatic backups (Default: 7200)
 - `SERVER_BACKUP_LONG` - The interval between the subsequent automatic backups (Default: 43200)
 
+### Additional Server Arguments
+
+Docker Compose `command:` passes additional arguments directly to the Valheim
+server. Use list syntax to keep each argument separate. This is supported by both
+the Box64/Wine and FEX images. Deployments without `command:` keep their existing
+behavior.
+
+For example, the Compose configuration below adds `-modifier portals casual`.
+Remove the optional `command:` block if you do not want this modifier.
+
 ### Ports
 
 If ports 2456-2458/UDP are in use on your server, you can use a different port range by changing the left side of the port assignment like so:
@@ -57,6 +67,10 @@ Place your plugins in the ./valheim/server/BepInEx/plugins folder.
 services:
   valheim_server:
     image: tsxcloud/valheim-arm:latest
+    command:
+      - -modifier
+      - portals
+      - casual
     restart: unless-stopped
     stop_grace_period: 40s
     ports:
